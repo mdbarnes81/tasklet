@@ -1,0 +1,16 @@
+{
+  // MCP servers available to agent mode in this workspace. VS Code prompts before starting each one.
+  // No tokens here: the GitHub server uses VS Code's GitHub sign-in.
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "playwright": {
+      // Optional: lets the accessibility agent drive a real browser against `npm start`.
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}

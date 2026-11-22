@@ -1,0 +1,23 @@
+{
+  "name": "tasklet",
+  "version": "0.1.0",
+  "description": "A deliberately tiny to-do app used to demonstrate GitHub Copilot multi-agent repository customisation.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "test:coverage": "node --test --experimental-test-coverage \"tests/**/*.test.js\"",
+    "lint:security": "node scripts/check-dom-sinks.mjs",
+    "lint:a11y": "node .github/skills/accessibility-audit/scripts/a11y-static-check.mjs index.html",
+    "validate:copilot": "node scripts/validate-copilot-config.mjs",
+    "check": "npm test && npm run lint:security && npm run lint:a11y && npm run validate:copilot"
+  },
+  "dependencies": {
+    "@playwright/mcp": "^0.0.86"
+  }
+}

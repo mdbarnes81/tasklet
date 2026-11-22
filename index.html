@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Strict CSP: no inline script or style, no third-party origins.
+         frame-ancestors cannot be set via <meta>; scripts/serve.mjs sends it as a header. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>Tasklet</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <script type="module" src="src/main.js"></script>
+  </head>
+  <body>
+    <main class="app">
+      <h1>Tasklet</h1>
+
+      <form id="new-task-form" class="new-task" novalidate>
+        <label for="new-task-title">New task</label>
+        <div class="new-task__row">
+          <input
+            id="new-task-title"
+            name="title"
+            type="text"
+            maxlength="120"
+            autocomplete="off"
+            required
+            aria-describedby="form-error"
+          />
+          <button type="submit">Add</button>
+        </div>
+        <p id="form-error" class="error" role="alert" hidden></p>
+      </form>
+
+      <nav aria-label="Filter tasks" class="filters">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="active" aria-pressed="false">Active</button>
+        <button type="button" data-filter="done" aria-pressed="false">Done</button>
+      </nav>
+
+      <ul id="task-list" class="task-list" aria-label="Tasks"></ul>
+
+      <footer class="app__footer">
+        <p id="status" role="status" aria-live="polite"></p>
+        <button type="button" id="clear-done">Clear done</button>
+      </footer>
+    </main>
+  </body>
+</html>

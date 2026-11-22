@@ -1,0 +1,38 @@
+# Prepares the ephemeral environment that Copilot cloud agent works in, before it starts on a task.
+# The job MUST be named `copilot-setup-steps` or Copilot will not pick it up.
+# It runs automatically on workflow_dispatch / push / PR to this file so you can test it like any workflow.
+name: Copilot Setup Steps
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Least privilege. Copilot gets its own token for its work; this job only needs to read the repo.
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install (zero dependencies, lockfile only)
+        run: npm ci --ignore-scripts
+
+      - name: Smoke-test the toolchain the agent will use
+        run: |
+          node --version
+          npm test
+          npm run validate:copilot

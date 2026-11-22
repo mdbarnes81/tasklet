@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Tests, security lint, a11y, Copilot config
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      # Pin to full commit SHAs in production repos; Dependabot (see dependabot.yml) keeps them current.
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install (lockfile only, zero dependencies)
+        run: npm ci --ignore-scripts
+
+      - name: Unit tests
+        run: npm test
+
+      - name: DOM sink security lint
+        run: npm run lint:security
+
+      - name: Static accessibility check
+        run: npm run lint:a11y
+
+      - name: Validate Copilot customisation
+        run: npm run validate:copilot

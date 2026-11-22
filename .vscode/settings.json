@@ -1,0 +1,16 @@
+{
+  // Copilot customisation discovery. Setting names move between VS Code releases:
+  // if one shows as "Unknown Configuration Setting", check the Agent Customizations editor.
+  "chat.useAgentsMdFile": true,
+  "chat.useNestedAgentsMdFiles": true,
+  "chat.useHooks": true,
+
+  // Let the orchestrator's subagents stay one level deep (the default). Set true only if you
+  // deliberately want nested delegation.
+  "chat.subagents.allowInvocationsFromSubagents": false,
+
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": { "files.trimTrailingWhitespace": false }
+}

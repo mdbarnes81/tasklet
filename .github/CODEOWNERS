@@ -1,0 +1,11 @@
+# Replace the placeholder team with your own before use.
+*                         @example-org/tasklet-maintainers
+
+# Changes to agent behaviour, guardrails and CI need an extra pair of eyes.
+/.github/agents/          @example-org/tasklet-maintainers @example-org/ai-governance
+/.github/skills/          @example-org/tasklet-maintainers @example-org/ai-governance
+/.github/hooks/           @example-org/tasklet-maintainers @example-org/ai-governance
+/.github/instructions/    @example-org/tasklet-maintainers @example-org/ai-governance
+/.github/copilot-instructions.md @example-org/tasklet-maintainers @example-org/ai-governance
+/AGENTS.md                @example-org/tasklet-maintainers @example-org/ai-governance
+/.github/workflows/       @example-org/tasklet-maintainers @example-org/security
